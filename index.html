@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Catch My Heart Sydelle 💘</title>
+  <style>
+    :root {
+      --bg1: #0b1020;
+      --bg2: #1a0b2e;
+      --card: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.14);
+      --text: rgba(255, 255, 255, 0.92);
+      --muted: rgba(255, 255, 255, 0.72);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color: var(--text);
+      background: radial-gradient(1200px 800px at 30% 20%, #2a1456 0%, transparent 55%),
+                  radial-gradient(900px 700px at 75% 30%, #7c1f62 0%, transparent 60%),
+                  linear-gradient(160deg, var(--bg1), var(--bg2));
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+      padding: 18px;
+    }
+    .wrap { width: min(920px, 100%); display: grid; gap: 14px; }
+    .topbar {
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      padding:12px 14px; border:1px solid var(--border); background:var(--card);
+      border-radius:16px; backdrop-filter: blur(10px);
+    }
+    .title { display:flex; flex-direction:column; gap:2px; }
+    .title strong { font-size:16px; letter-spacing:0.2px; }
+    .title span { font-size:13px; color:var(--muted); }
+    .stats { display:flex; gap:10px; align-items:center; font-size:14px; color:var(--muted); white-space:nowrap; }
+    .pill { padding:8px 10px; border:1px solid var(--border); background:rgba(255,255,255,0.06); border-radius:999px; }
+    .btn {
+      border:1px solid var(--border); background:rgba(255,255,255,0.08); color:var(--text);
+      border-radius:999px; padding:10px 12px; font-weight:600; cursor:pointer;
+      transition:transform .08s ease, background .2s ease; user-select:none; -webkit-tap-highlight-color:transparent;
+    }
+    .btn:active { transform:scale(0.98); }
+    .btn:hover { background:rgba(255,255,255,0.12); }
+
+    .game {
+      position:relative; width:100%; height:min(72vh, 640px);
+      border-radius:18px; border:1px solid var(--border);
+      background: radial-gradient(900px 600px at 50% -20%, rgba(255,255,255,0.10), transparent 60%),
+                 linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+      overflow:hidden; backdrop-filter: blur(10px);
+      touch-action:none;
+    }
+    .hint{
+      position:absolute; left:14px; top:14px;
+      padding:10px 12px; border:1px solid var(--border);
+      background:rgba(0,0,0,0.25); border-radius:14px;
+      font-size:13px; color:var(--muted); max-width:75%;
+    }
+    .basket{
+      position:absolute; bottom:16px; width:86px; height:52px;
+      border-radius:16px 16px 22px 22px;
+      border:1px solid rgba(255,255,255,0.20);
+      background:rgba(255,255,255,0.12);
+      box-shadow:0 10px 30px rgba(0,0,0,0.35);
+      display:grid; place-items:center;
+      transform:translateX(-50%); left:50%;
+    }
+    .basket::before{
+      content:""; position:absolute; top:-16px; width:58px; height:26px;
+      border-radius:20px 20px 8px 8px;
+      border:2px solid rgba(255,255,255,0.25);
+      border-bottom:none; opacity:0.85;
+    }
+    .basket span{ font-size:22px; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.45)); }
+
+    .heart{
+      position:absolute; top:-40px; font-size:26px; will-change:transform;
+      filter: drop-shadow(0 10px 10px rgba(0,0,0,0.35));
+      user-select:none; pointer-events:none;
+    }
+
+    .overlay{
+      position:absolute; inset:0; display:none; place-items:center;
+      background:rgba(0,0,0,0.55); backdrop-filter: blur(8px); padding:18px;
+    }
+    .overlay.show{ display:grid; }
+    .modal{
+      width:min(540px, 100%); border-radius:18px; border:1px solid var(--border);
+      background:rgba(20, 10, 35, 0.82); box-shadow:0 20px 70px rgba(0,0,0,0.55);
+      padding:18px; text-align:center;
+    }
+    .modal h1{ margin:8px 0 6px; font-size:26px; letter-spacing:0.2px; }
+    .modal p{ margin:0 0 14px; color:var(--muted); line-height:1.35; }
+    .actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+    .btn.primary{
+      background: rgba(255, 100, 170, 0.22);
+      border-color: rgba(255, 120, 190, 0.35);
+    }
+    .btn.primary:hover{ background: rgba(255, 100, 170, 0.30); }
+    .small{ margin-top:10px; font-size:12px; color: rgba(255,255,255,0.6); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="title">
+        <strong>Sydelle… I made you a tiny game 💘</strong>
+        <span>Catch <b id="targetLabel">14</b> hearts to unlock a very important question 😌</span>
+      </div>
+      <div class="stats">
+        <div class="pill">Score: <b id="score">0</b></div>
+        <div class="pill">Missed: <b id="missed">0</b></div>
+        <button class="btn" id="startBtn">Start</button>
+        <button class="btn" id="resetBtn">Reset</button>
+      </div>
+    </div>
+
+    <div class="game" id="game">
+      <div class="hint" id="hint">Drag the basket left/right to catch hearts. No pressure… but I’m keeping score 👀</div>
+      <div class="basket" id="basket"><span>🧺</span></div>
+
+      <div class="overlay" id="overlay">
+        <div class="modal">
+          <div style="font-size:34px;">💞</div>
+          <h1 id="finalTitle">Sydelle, will you be my Valentine?</h1>
+          <p id="finalText">You caught 14 hearts… so I’m shooting my shot for the 15th: yours 🥲💘</p>
+          <div class="actions">
+            <button class="btn primary" id="yesBtn">YES 💘</button>
+            <button class="btn" id="yesBtn2">Obviously 😌</button>
+            <button class="btn" id="playAgainBtn">Play again</button>
+          </div>
+          <div class="small" id="afterYes" style="display:none;">
+            Now screenshot this and send it to me so I can pretend I’m calm 😭💗
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  const CONFIG = {
+    targetScore: 14,
+    spawnEveryMs: 520,
+    fallMinMs: 1600,
+    fallMaxMs: 2600
+  };
+
+  const game = document.getElementById('game');
+  const basket = document.getElementById('basket');
+  const scoreEl = document.getElementById('score');
+  const missedEl = document.getElementById('missed');
+  const startBtn = document.getElementById('startBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const overlay = document.getElementById('overlay');
+  const targetLabel = document.getElementById('targetLabel');
+  const hint = document.getElementById('hint');
+
+  const yesBtn = document.getElementById('yesBtn');
+  const yesBtn2 = document.getElementById('yesBtn2');
+  const playAgainBtn = document.getElementById('playAgainBtn');
+  const afterYes = document.getElementById('afterYes');
+
+  targetLabel.textContent = CONFIG.targetScore.toString();
+
+  let running = false;
+  let score = 0;
+  let missed = 0;
+  let spawnTimer = null;
+  let hearts = [];
+  let lastFrame = 0;
+
+  let basketX = 0;
+  const basketWidth = () => basket.getBoundingClientRect().width;
+  function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+  function setBasketX(px){
+    const rect = game.getBoundingClientRect();
+    const half = basketWidth() / 2;
+    basketX = clamp(px, half, rect.width - half);
+    basket.style.left = `${basketX}px`;
+  }
+
+  function resetGame(){
+    stopGame();
+    score = 0;
+    missed = 0;
+    scoreEl.textContent = "0";
+    missedEl.textContent = "0";
+    afterYes.style.display = "none";
+    overlay.classList.remove('show');
+    hearts.forEach(h => h.el.remove());
+    hearts = [];
+    const rect = game.getBoundingClientRect();
+    setBasketX(rect.width / 2);
+    hint.textContent = "Drag the basket left/right to catch hearts. No pressure… but I’m keeping score 👀";
+  }
+
+  function startGame(){
+    if (running) return;
+    running = true;
+    overlay.classList.remove('show');
+    hint.textContent = "Okay Sydelle… catch " + (CONFIG.targetScore - score) + " more 💘";
+    spawnTimer = setInterval(spawnHeart, CONFIG.spawnEveryMs);
+    lastFrame = performance.now();
+    requestAnimationFrame(loop);
+  }
+
+  function stopGame(){
+    running = false;
+    if (spawnTimer) clearInterval(spawnTimer);
+    spawnTimer = null;
+  }
+
+  function showFinal(){
+    stopGame();
+    overlay.classList.add('show');
+  }
+
+  function spawnHeart(){
+    const rect = game.getBoundingClientRect();
+    const el = document.createElement('div');
+    el.className = 'heart';
+    const options = ["💗","💖","💘","💝","💞","❤️"];
+    el.textContent = options[Math.floor(Math.random() * options.length)];
+    const x = Math.random() * rect.width;
+    el.style.left = `${x}px`;
+    const fallDuration = CONFIG.fallMinMs + Math.random() * (CONFIG.fallMaxMs - CONFIG.fallMinMs);
+    game.appendChild(el);
+
+    hearts.push({
+      el,
+      x,
+      y: -40,
+      vy: rect.height / (fallDuration / 16.67)
+    });
+  }
+
+  function loop(now){
+    if (!running) return;
+    const dt = (now - lastFrame) / 16.67;
+    lastFrame = now;
+
+    const basketRect = basket.getBoundingClientRect();
+    const gameRect = game.getBoundingClientRect();
+
+    for (let i = hearts.length - 1; i >= 0; i--){
+      const h = hearts[i];
+      h.y += h.vy * dt;
+      h.el.style.transform = `translate(${h.x}px, ${h.y}px)`;
+
+      const heartRect = h.el.getBoundingClientRect();
+      const caught =
+        heartRect.bottom >= basketRect.top &&
+        heartRect.top <= basketRect.bottom &&
+        heartRect.right >= basketRect.left &&
+        heartRect.left <= basketRect.right;
+
+      if (caught){
+        score++;
+        scoreEl.textContent = String(score);
+        h.el.remove();
+        hearts.splice(i, 1);
+
+        if (score >= CONFIG.targetScore){
+          showFinal();
+          return;
+        } else {
+          hint.textContent = "Nice 😌 catch " + (CONFIG.targetScore - score) + " more 💘";
+        }
+        continue;
+      }
+
+      if (h.y > gameRect.height + 80){
+        missed++;
+        missedEl.textContent = String(missed);
+        h.el.remove();
+        hearts.splice(i, 1);
+      }
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  let dragging = false;
+  function pointerToGameX(e){
+    const rect = game.getBoundingClientRect();
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    return clientX - rect.left;
+  }
+  function onDown(e){ dragging = true; setBasketX(pointerToGameX(e)); }
+  function onMove(e){ if (!dragging) return; setBasketX(pointerToGameX(e)); }
+  function onUp(){ dragging = false; }
+
+  game.addEventListener('mousedown', onDown);
+  window.addEventListener('mousemove', onMove);
+  window.addEventListener('mouseup', onUp);
+
+  game.addEventListener('touchstart', (e) => onDown(e), { passive: true });
+  game.addEventListener('touchmove', (e) => onMove(e), { passive: true });
+  game.addEventListener('touchend', onUp);
+
+  startBtn.addEventListener('click', startGame);
+  resetBtn.addEventListener('click', resetGame);
+
+  function handleYes(){
+    afterYes.style.display = "block";
+    for (let i = 0; i < 18; i++) spawnHeart();
+  }
+  yesBtn.addEventListener('click', handleYes);
+  yesBtn2.addEventListener('click', handleYes);
+  playAgainBtn.addEventListener('click', () => { resetGame(); startGame(); });
+
+  resetGame();
+})();
+</script>
+</body>
+</html>
