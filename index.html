@@ -6,110 +6,217 @@
   <title>Catch My Heart Sydelle 💘</title>
   <style>
     :root {
-      --bg1: #0b1020;
-      --bg2: #1a0b2e;
-      --card: rgba(255, 255, 255, 0.08);
-      --border: rgba(255, 255, 255, 0.14);
-      --text: rgba(255, 255, 255, 0.92);
-      --muted: rgba(255, 255, 255, 0.72);
+      --card: rgba(255, 255, 255, 0.10);
+      --border: rgba(255, 255, 255, 0.18);
+      --text: rgba(255, 255, 255, 0.94);
+      --muted: rgba(255, 255, 255, 0.78);
     }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
       color: var(--text);
-      background: radial-gradient(1200px 800px at 30% 20%, #2a1456 0%, transparent 55%),
-                  radial-gradient(900px 700px at 75% 30%, #7c1f62 0%, transparent 60%),
-                  linear-gradient(160deg, var(--bg1), var(--bg2));
+
+      /* More pink background */
+      background:
+        radial-gradient(1200px 800px at 25% 20%, #ff4fa3 0%, transparent 55%),
+        radial-gradient(900px 700px at 80% 30%, #ff2d7a 0%, transparent 60%),
+        radial-gradient(900px 700px at 50% 85%, #ff8bcf 0%, transparent 55%),
+        linear-gradient(160deg, #220018, #3a0026);
+
       min-height: 100vh;
       display: grid;
       place-items: center;
       overflow: hidden;
       padding: 18px;
     }
-    .wrap { width: min(920px, 100%); display: grid; gap: 14px; }
-    .topbar {
-      display:flex; gap:10px; align-items:center; justify-content:space-between;
-      padding:12px 14px; border:1px solid var(--border); background:var(--card);
-      border-radius:16px; backdrop-filter: blur(10px);
-    }
-    .title { display:flex; flex-direction:column; gap:2px; }
-    .title strong { font-size:16px; letter-spacing:0.2px; }
-    .title span { font-size:13px; color:var(--muted); }
-    .stats { display:flex; gap:10px; align-items:center; font-size:14px; color:var(--muted); white-space:nowrap; }
-    .pill { padding:8px 10px; border:1px solid var(--border); background:rgba(255,255,255,0.06); border-radius:999px; }
-    .btn {
-      border:1px solid var(--border); background:rgba(255,255,255,0.08); color:var(--text);
-      border-radius:999px; padding:10px 12px; font-weight:600; cursor:pointer;
-      transition:transform .08s ease, background .2s ease; user-select:none; -webkit-tap-highlight-color:transparent;
-    }
-    .btn:active { transform:scale(0.98); }
-    .btn:hover { background:rgba(255,255,255,0.12); }
 
+    .wrap {
+      width: min(920px, 100%);
+      display: grid;
+      gap: 14px;
+    }
+
+    .topbar {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .title strong { font-size: 16px; letter-spacing: 0.2px; }
+    .title span { font-size: 13px; color: var(--muted); }
+
+    .stats {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .pill {
+      padding: 8px 10px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.08);
+      border-radius: 999px;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.10);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 10px 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform .08s ease, background .2s ease;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn:hover { background: rgba(255,255,255,0.14); }
+
+    /* Game area */
     .game {
-      position:relative; width:100%; height:min(72vh, 640px);
-      border-radius:18px; border:1px solid var(--border);
-      background: radial-gradient(900px 600px at 50% -20%, rgba(255,255,255,0.10), transparent 60%),
-                 linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-      overflow:hidden; backdrop-filter: blur(10px);
-      touch-action:none;
+      position: relative;
+      width: 100%;
+      height: min(72vh, 640px);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background:
+        radial-gradient(900px 600px at 50% -20%, rgba(255,255,255,0.14), transparent 60%),
+        linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      touch-action: none;
     }
-    .hint{
-      position:absolute; left:14px; top:14px;
-      padding:10px 12px; border:1px solid var(--border);
-      background:rgba(0,0,0,0.25); border-radius:14px;
-      font-size:13px; color:var(--muted); max-width:75%;
+
+    .hint {
+      position: absolute;
+      left: 14px;
+      top: 14px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      background: rgba(0,0,0,0.22);
+      border-radius: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      max-width: 80%;
     }
-    .basket{
-      position:absolute; bottom:16px; width:86px; height:52px;
-      border-radius:16px 16px 22px 22px;
-      border:1px solid rgba(255,255,255,0.20);
-      background:rgba(255,255,255,0.12);
-      box-shadow:0 10px 30px rgba(0,0,0,0.35);
-      display:grid; place-items:center;
-      transform:translateX(-50%); left:50%;
+
+    /* Basket */
+    .basket {
+      position: absolute;
+      bottom: 16px;
+      width: 86px;
+      height: 52px;
+      border-radius: 16px 16px 22px 22px;
+      border: 1px solid rgba(255,255,255,0.24);
+      background: rgba(255,255,255,0.16);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      display: grid;
+      place-items: center;
+      transform: translateX(-50%);
+      left: 50%;
     }
     .basket::before{
-      content:""; position:absolute; top:-16px; width:58px; height:26px;
-      border-radius:20px 20px 8px 8px;
-      border:2px solid rgba(255,255,255,0.25);
-      border-bottom:none; opacity:0.85;
+      content:"";
+      position:absolute;
+      top:-16px;
+      width: 58px;
+      height: 26px;
+      border-radius: 20px 20px 8px 8px;
+      border: 2px solid rgba(255,255,255,0.28);
+      border-bottom: none;
+      opacity: 0.9;
     }
-    .basket span{ font-size:22px; filter: drop-shadow(0 6px 8px rgba(0,0,0,0.45)); }
+    .basket span{
+      font-size: 22px;
+      filter: drop-shadow(0 6px 8px rgba(0,0,0,0.45));
+    }
 
-    .heart{
-      position:absolute; top:-40px; font-size:26px; will-change:transform;
+    /* Hearts */
+    .heart {
+      position: absolute;
+      top: -40px;
+      font-size: 26px;
+      will-change: transform;
       filter: drop-shadow(0 10px 10px rgba(0,0,0,0.35));
-      user-select:none; pointer-events:none;
+      user-select: none;
+      pointer-events: none;
     }
 
-    .overlay{
-      position:absolute; inset:0; display:none; place-items:center;
-      background:rgba(0,0,0,0.55); backdrop-filter: blur(8px); padding:18px;
+    /* Overlay modal */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: none;
+      place-items: center;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(8px);
+      padding: 18px;
+      z-index: 10;
     }
-    .overlay.show{ display:grid; }
-    .modal{
-      width:min(540px, 100%); border-radius:18px; border:1px solid var(--border);
-      background:rgba(20, 10, 35, 0.82); box-shadow:0 20px 70px rgba(0,0,0,0.55);
-      padding:18px; text-align:center;
+    .overlay.show { display: grid; }
+
+    .modal {
+      width: min(560px, 100%);
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(35, 0, 25, 0.86);
+      box-shadow: 0 20px 70px rgba(0,0,0,0.55);
+      padding: 18px;
+      text-align: center;
     }
-    .modal h1{ margin:8px 0 6px; font-size:26px; letter-spacing:0.2px; }
-    .modal p{ margin:0 0 14px; color:var(--muted); line-height:1.35; }
-    .actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
-    .btn.primary{
-      background: rgba(255, 100, 170, 0.22);
-      border-color: rgba(255, 120, 190, 0.35);
+    .modal h1 {
+      margin: 8px 0 6px;
+      font-size: 26px;
+      letter-spacing: 0.2px;
     }
-    .btn.primary:hover{ background: rgba(255, 100, 170, 0.30); }
-    .small{ margin-top:10px; font-size:12px; color: rgba(255,255,255,0.6); }
+    .modal p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      line-height: 1.35;
+      font-size: 15px;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn.primary {
+      background: rgba(255, 100, 170, 0.28);
+      border-color: rgba(255, 120, 190, 0.40);
+    }
+    .btn.primary:hover { background: rgba(255, 100, 170, 0.36); }
+
+    .small {
+      margin-top: 10px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.68);
+    }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="topbar">
       <div class="title">
-        <strong>Sydelle… I made you a tiny game 💘</strong>
-        <span>Catch <b id="targetLabel">14</b> hearts to unlock a very important question 😌</span>
+        <strong>Sydelle… I made you a little game 💘</strong>
+        <span>Catch <b id="targetLabel">14</b> my hearts to unlock a very important question 😌</span>
       </div>
       <div class="stats">
         <div class="pill">Score: <b id="score">0</b></div>
@@ -123,6 +230,7 @@
       <div class="hint" id="hint">Drag the basket left/right to catch hearts. No pressure… but I’m keeping score 👀</div>
       <div class="basket" id="basket"><span>🧺</span></div>
 
+      <!-- Valentine overlay -->
       <div class="overlay" id="overlay">
         <div class="modal">
           <div style="font-size:34px;">💞</div>
@@ -134,10 +242,26 @@
             <button class="btn" id="playAgainBtn">Play again</button>
           </div>
           <div class="small" id="afterYes" style="display:none;">
-            Now screenshot this and send it to me so I can pretend I’m calm 😭💗
+            Now screenshot this as evidence you completed the game💗
           </div>
         </div>
       </div>
+
+      <!-- Coach bag popup overlay -->
+      <div class="overlay" id="coachOverlay">
+        <div class="modal">
+          <div style="font-size:34px;">👜💖</div>
+          <h1>Your answer is confirmed</h1>
+          <p style="font-size:16px;">
+            your coach bag has been ordered and is on the way, I Love You 💗
+          </p>
+          <div class="actions">
+            <button class="btn primary" id="coachCloseBtn">Awww 😭</button>
+          </div>
+          <div class="small">Okay now you *have* to be my Valentine 😌</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -156,7 +280,11 @@
   const missedEl = document.getElementById('missed');
   const startBtn = document.getElementById('startBtn');
   const resetBtn = document.getElementById('resetBtn');
+
   const overlay = document.getElementById('overlay');
+  const coachOverlay = document.getElementById('coachOverlay');
+  const coachCloseBtn = document.getElementById('coachCloseBtn');
+
   const targetLabel = document.getElementById('targetLabel');
   const hint = document.getElementById('hint');
 
@@ -174,8 +302,10 @@
   let hearts = [];
   let lastFrame = 0;
 
+  // Basket position (center X in pixels relative to game)
   let basketX = 0;
   const basketWidth = () => basket.getBoundingClientRect().width;
+
   function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
 
   function setBasketX(px){
@@ -193,6 +323,7 @@
     missedEl.textContent = "0";
     afterYes.style.display = "none";
     overlay.classList.remove('show');
+    coachOverlay.classList.remove('show');
     hearts.forEach(h => h.el.remove());
     hearts = [];
     const rect = game.getBoundingClientRect();
@@ -204,6 +335,7 @@
     if (running) return;
     running = true;
     overlay.classList.remove('show');
+    coachOverlay.classList.remove('show');
     hint.textContent = "Okay Sydelle… catch " + (CONFIG.targetScore - score) + " more 💘";
     spawnTimer = setInterval(spawnHeart, CONFIG.spawnEveryMs);
     lastFrame = performance.now();
@@ -286,15 +418,26 @@
     requestAnimationFrame(loop);
   }
 
+  // Drag controls (touch + mouse)
   let dragging = false;
+
   function pointerToGameX(e){
     const rect = game.getBoundingClientRect();
     const clientX = e.touches ? e.touches[0].clientX : e.clientX;
     return clientX - rect.left;
   }
-  function onDown(e){ dragging = true; setBasketX(pointerToGameX(e)); }
-  function onMove(e){ if (!dragging) return; setBasketX(pointerToGameX(e)); }
-  function onUp(){ dragging = false; }
+
+  function onDown(e){
+    dragging = true;
+    setBasketX(pointerToGameX(e));
+  }
+  function onMove(e){
+    if (!dragging) return;
+    setBasketX(pointerToGameX(e));
+  }
+  function onUp(){
+    dragging = false;
+  }
 
   game.addEventListener('mousedown', onDown);
   window.addEventListener('mousemove', onMove);
@@ -304,17 +447,34 @@
   game.addEventListener('touchmove', (e) => onMove(e), { passive: true });
   game.addEventListener('touchend', onUp);
 
+  // Buttons
   startBtn.addEventListener('click', startGame);
   resetBtn.addEventListener('click', resetGame);
 
   function handleYes(){
     afterYes.style.display = "block";
     for (let i = 0; i < 18; i++) spawnHeart();
+
+    // Close the Valentine modal and open the Coach bag popup
+    setTimeout(() => {
+      overlay.classList.remove('show');
+      coachOverlay.classList.add('show');
+    }, 350);
   }
+
   yesBtn.addEventListener('click', handleYes);
   yesBtn2.addEventListener('click', handleYes);
-  playAgainBtn.addEventListener('click', () => { resetGame(); startGame(); });
 
+  playAgainBtn.addEventListener('click', () => {
+    resetGame();
+    startGame();
+  });
+
+  coachCloseBtn.addEventListener('click', () => {
+    coachOverlay.classList.remove('show');
+  });
+
+  // Init
   resetGame();
 })();
 </script>
